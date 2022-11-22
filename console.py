@@ -134,7 +134,7 @@ class HBNBCommand(cmd.Cmd):
             str = ""
             if value[0] == '"' and value[len(value) - 1] == '"':
                 for char in range(1, len(value)-1):
-                    if char == "_":
+                    if char == '_':
                         str += " "
                         continue
                     str += value[char]
