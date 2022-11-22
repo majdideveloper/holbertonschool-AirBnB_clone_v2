@@ -139,6 +139,7 @@ class HBNBCommand(cmd.Cmd):
                         continue
                     str += value[char]
                 value = str
+                print(value)
             elif value.find(".") != -1:
                 value = float(value)
             else:
