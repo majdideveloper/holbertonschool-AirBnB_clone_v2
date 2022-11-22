@@ -12,9 +12,9 @@ class FileStorage:
         """Returns a dictionary of models currently in storage"""
         if cls != None:
             temp = {}
-            temp.update(FileStorage.__objects)
-            for key, val in temp.items():
-                if key.split(".")[0] == cls.__name__  :
+            
+            for key, val in FileStorage.__objects.items():
+                if key.split(".")[0] == cls.__name__:
                     temp[key] = val.to_dict()
             return temp
 
