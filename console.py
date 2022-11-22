@@ -133,11 +133,11 @@ class HBNBCommand(cmd.Cmd):
             value = a[1]
             str = ""
             if value[0] == '"' and value[len(value) - 1] == '"':
-                for char in range(1, len(value)-1):
-                    if char == '_':
+                for index in range(1, len(value)-1):
+                    if value[index] == "_":
                         str += " "
                         continue
-                    str += value[char]
+                    str += value[index]
                 value = str
                 print(value)
             elif value.find(".") != -1:
