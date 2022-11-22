@@ -14,7 +14,7 @@ class FileStorage:
             temp = {}
             temp.update(FileStorage.__objects)
             for key, val in temp.items():
-                if key == cls.to_dict()['__class__']:
+                if key == cls.__class__:
                     temp[key] = val.to_dict()
             return temp
 
