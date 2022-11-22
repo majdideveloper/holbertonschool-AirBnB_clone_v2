@@ -73,8 +73,8 @@ class HBNBCommand(cmd.Cmd):
                 pline = pline[2].strip()  # pline is now str
                 if pline:
                     # check for *args or **kwargs
-                    if pline[0] is '{' and pline[-1] is '}'\
-                            and type(eval(pline)) is dict:
+                    if pline[0] == '{' and pline[-1] == '}'\
+                            and type(eval(pline)) == dict:
                         _args = pline
                     else:
                         _args = pline.replace(',', '')
@@ -132,11 +132,11 @@ class HBNBCommand(cmd.Cmd):
             key = a[0]
             value = a[1]
             str = ""
-            if value[0] is '"' and value[len(value) - 1] is '"':
+            if value[0] == '"' and value[len(value) - 1] == '"':
                 for char in range(1, len(value)-1):
                     str += value[char]
                 value = str
-            elif value.find(".") is not -1:
+            elif value.find(".") != -1:
                 value = float(value)
             else:
                 value = int(value)
@@ -292,7 +292,7 @@ class HBNBCommand(cmd.Cmd):
                 args.append(v)
         else:  # isolate args
             args = args[2]
-            if args and args[0] is '\"':  # check for quoted arg
+            if args and args[0] == '\"':  # check for quoted arg
                 second_quote = args.find('\"', 1)
                 att_name = args[1:second_quote]
                 args = args[second_quote + 1:]
