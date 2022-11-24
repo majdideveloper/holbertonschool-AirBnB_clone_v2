@@ -10,17 +10,18 @@ from os import getenv
 
 association_table = Table('place_amenity', Base.metadata,
     Column('place_id', String(60), ForeignKey('places.id'),
-     primary_key=True,nullable=False),
+                            primary_key=True, nullable=False),
     Column('amenity_id', String(60), ForeignKey('amenities.id'),
-     primary_key=True, nullable=False),
+                            primary_key=True, nullable=False),
 )
+
 
 class Place(BaseModel, Base):
     """ A place to stay """
     __tablename__ = 'places'
 
-    city_id = Column(String(60), ForeignKey("cities.id"),nullable=False)
-    user_id = Column(String(60), ForeignKey("users.id"),nullable=False)
+    city_id = Column(String(60), ForeignKey("cities.id"), nullable=False)
+    user_id = Column(String(60), ForeignKey("users.id"), nullable=False)
     name = Column(String(128), nullable=False)
     description = Column(String(1024), nullable=False)
     number_rooms = Column(Integer, nullable=False, default=0)
@@ -43,6 +44,7 @@ class Place(BaseModel, Base):
                 if review.place_id == self.id:
                     review_list.append(review)
             return review_list
+
         @property
         def amenities(self):
             """Get a list of all linked Amenities."""
@@ -56,5 +58,5 @@ class Place(BaseModel, Base):
         def amenities(self, value):
             if type(value) == Amenity:
                 self.amenity_ids.append(value.id)
-        
+
 
