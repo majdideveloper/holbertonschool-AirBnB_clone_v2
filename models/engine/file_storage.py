@@ -62,7 +62,7 @@ class FileStorage:
             return
         delete_item = False
         for key in FileStorage.__objects.keys():
-            if obj.__class__.__name__ + "." +obj.id == key:
+            if obj.__class__.__name__ + "." + obj.id == key:
                 delete_item = True
         if delete_item:
-            del FileStorage.__objects[obj.__class__.__name__ + "." +obj.id]
+            del FileStorage.__objects[obj.__class__.__name__ + "." + obj.id]
