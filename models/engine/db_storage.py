@@ -38,12 +38,18 @@ class DBStorage():
         if cls == None:
             objs = self.__session.query(State, City, User, Review, Place, Amenity).all()
         else:
-            objs = self.__session.query(cls.__class__.__name__)
+            if type(cls) == str:
+                cls = eval(cls)
+            objs = self.__session.query(cls)
+        return {"{}.{}".format(type(o).__name__, o.id): o for o in objs}
+        """  objs = self.__session.query(cls.__class__.__name__)
         resu = {}
         for obj in objs:
             resu[obj.__class__.__name__+ "." + obj.id]= obj
             
         return resu
+        """
+
 
     def new(self, obj):
         """Add obj to the current database session."""
