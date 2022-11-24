@@ -35,6 +35,19 @@ class DBStorage():
         If cls is None, queries all types of objects.
         Return:
             Dict of queried classes in the format <class name>.<obj id> = obj."""
+        if cls is None:
+            objs = self.__session.query(State).all()
+            objs.extend(self.__session.query(City).all())
+            objs.extend(self.__session.query(User).all())
+            objs.extend(self.__session.query(Place).all())
+            objs.extend(self.__session.query(Review).all())
+            objs.extend(self.__session.query(Amenity).all())
+        else:
+            if type(cls) == str:
+                cls = eval(cls)
+            objs = self.__session.query(cls)
+        return {"{}.{}".format(type(o).__name__, o.id): o for o in objs}
+        """
         if cls == None:
             objs = self.__session.query(State, City, User, Review, Place, Amenity).all()
         else:
@@ -42,7 +55,7 @@ class DBStorage():
                 cls = eval(cls)
             objs = self.__session.query(cls)
         return {"{}.{}".format(type(o).__name__, o.id): o for o in objs}
-        """  objs = self.__session.query(cls.__class__.__name__)
+        objs = self.__session.query(cls.__class__.__name__)
         resu = {}
         for obj in objs:
             resu[obj.__class__.__name__+ "." + obj.id]= obj
