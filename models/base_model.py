@@ -3,10 +3,13 @@
 
 from datetime import datetime
 from uuid import uuid4
-from sqlalchemy import Column, Integer, Sequence, String, DateTime
+from sqlalchemy import Column
+from sqlalchemy import DateTime
+from sqlalchemy import String
 from sqlalchemy.ext.declarative import declarative_base
 
 Base = declarative_base()
+
 class BaseModel:
     """A base class for all hbnb models"""
     id = Column(String(60), nullable=False, primary_key=True)
