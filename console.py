@@ -116,37 +116,9 @@ class HBNBCommand(cmd.Cmd):
     
     def do_create(self, args):
         """create Object"""
-        try:
-            if not args:
-                raise SyntaxError()
-            my_list = args.split(" ")
-
-            kwargs = {}
-            for i in range(1, len(my_list)):
-                key, value = tuple(my_list[i].split("="))
-                if value[0] == '"':
-                    value = value.strip('"').replace("_", " ")
-                else:
-                    try:
-                        value = eval(value)
-                    except (SyntaxError, NameError):
-                        continue
-                kwargs[key] = value
-
-            if kwargs == {}:
-                obj = eval(my_list[0])()
-            else:
-                obj = eval(my_list[0])(**kwargs)
-                storage.new(obj)
-            print(obj.id)
-            obj.save()
-
-        except SyntaxError:
-            print("** class name missing **")
-        except NameError:
-            print("** class doesn't exist **")
+        
       
-        """
+        
         arg = args.split()
         if not args:
             print(" class name missing ")
@@ -180,7 +152,7 @@ class HBNBCommand(cmd.Cmd):
             setattr(new_instance, key, value)
         storage.new(new_instance)
         storage.save()
-        print(new_instance.id)"""
+        print(new_instance.id)
 
     def help_create(self):
         """ Help information for the create method """
