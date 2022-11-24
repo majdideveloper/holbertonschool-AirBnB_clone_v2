@@ -26,7 +26,7 @@ class DBStorage():
                                             getenv('HBNB_MYSQL_PWD'),
                                             getenv('HBNB_MYSQL_HOST'),
                                             getenv('HBNB_MYSQL_DB')), 
-                                    pool_pre_ping=True)
+                                      pool_pre_ping=True)
         if getenv('HBNB_ENV') == 'test':
             Base.metadata.drop_all(self.__engine)
 
@@ -34,21 +34,21 @@ class DBStorage():
         """Query on the curret database session all objects of the given class.
         If cls is None, queries all types of objects.
         Return:
-            Dict of queried classes in the format <class name>.<obj id> = obj."""
-        if cls == None:
-            objs = self.__session.query(State, City, User, Review, Place, Amenity).all()
+        Dict of queried classes in the format <class name>.<obj id> = obj."""
+        if cls is None:
+            objs = self.__session.query(State, City, User,
+                                        Review, Place, Amenity).all()
         else:
             objs = self.__session.query(cls.__class__.__name__)
         resu = {}
         for obj in objs:
-            resu[obj.__class__.__name__+ "." + obj.id]= obj
-            
+            resu[obj.__class__.__name__ + "." + obj.id] = obj
         return resu
 
     def new(self, obj):
         """Add obj to the current database session."""
         self.__session.add(obj)
-        
+
     def save(self):
         """Commit all changes to the current database session."""
         self.__session.commit()
@@ -61,10 +61,8 @@ class DBStorage():
     def reload(self):
         Base.metadata.create_all(self.__engine)
 
-        session_factory = sessionmaker(bind=self.__engine, expire_on_commit=False)
+        session_factory = sessionmaker(bind=self.__engine,
+                                       expire_on_commit=False)
         Session = scoped_session(session_factory)
 
         self.__session = Session()
-
-
-         
