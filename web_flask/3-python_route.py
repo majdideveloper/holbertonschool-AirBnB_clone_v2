@@ -20,12 +20,12 @@ def hbnb():
 
 
 @app.route('/c/<text>', strict_slashes=False)
-def cisfun(text):
+def c_is_fun(text):
     return 'C %s' % text.replace("_", " ")
 
 
 @app.route('/python/<text>', strict_slashes=False)
-def cisfun(text="is cool"):
+def python_is_cool(text="is cool"):
     return 'Python %s' % text.replace("_", " ")
 
 
