@@ -66,3 +66,6 @@ class FileStorage:
                 delete_item = True
         if delete_item:
             del FileStorage.__objects[obj.__class__.__name__ + "." + obj.id]
+
+    def close(self):
+        self.reload()
