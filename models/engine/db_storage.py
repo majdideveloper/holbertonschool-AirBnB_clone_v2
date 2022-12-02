@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 """This module defines a class to manage db_storage for hbnb clone"""
-from sqlalchemy import create_engine
+
+
 
 from os import getenv
 
@@ -13,6 +14,7 @@ from models.state import State
 from models.user import User
 from models.base_model import BaseModel, Base
 from sqlalchemy.orm import sessionmaker, scoped_session
+from sqlalchemy import create_engine
 
 
 class DBStorage():
@@ -37,15 +39,21 @@ class DBStorage():
         Return:
             Dict of queried classes in the format <class name>.<obj id> = obj.
         """ 
+        objects = {}
+        all_classes = (State, City, User, Review, Place, Amenity)
         if cls is None:
-            objs = self.__session.query(State, City, User,
-                                        Review, Place, Amenity).all()
+            for class_type in all_classes:
+                query  =self.__session.query(class_type)
+                for obj in query.all():
+                    objects[obj.__class__.__name__ + "." + obj.id] = obj
+            """objs = self.__session.query(State, City, User,
+                                        Review, Place, Amenity).all()"""
+
         else:
             objs = self.__session.query(cls.__class__.__name__)
-        resu = {}
-        for obj in objs:
-            resu[obj.__class__.__name__ + "." + obj.id] = obj
-        return resu
+            for obj in objs:
+                objects[obj.__class__.__name__ + "." + obj.id] = obj
+        return objects
         
         
 
@@ -72,4 +80,5 @@ class DBStorage():
         self.__session = Session()
 
     def close(self):
+        """Close the working SQLAlchemy session."""
         self.__session.close()
