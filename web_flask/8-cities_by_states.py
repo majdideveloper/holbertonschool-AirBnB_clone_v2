@@ -4,6 +4,8 @@ a script that starts a Flask web application
 """
 from flask import Flask
 from models import storage
+from models.state import State
+from models.city import City
 from flask import render_template
 
 
@@ -12,11 +14,17 @@ app = Flask(__name__)
 
 @app.route("/cities_by_states", strict_slashes=False)
 def cities_by_states():
-    """Displays an HTML page with a list of all State objects in DBStorage.
-    States are sorted by name.
-    """
-    states = storage.all("State")
-    return render_template("7-states_list.html", states=states)
+    states = []
+    data = storage.all(State)
+    for key, value in data.items():
+        states.append(value)
+
+    cities = []
+    data = storage.all(City)
+    for key, value in data.items():
+        cities.append(value)
+    return render_template("8-cities_by_states.html", states=states,
+                           cities=cities)
 
 
 @app.teardown_appcontext
