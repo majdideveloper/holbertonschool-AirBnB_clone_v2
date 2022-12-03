@@ -4,6 +4,7 @@ a script that starts a Flask web application
 """
 from flask import Flask
 from models import storage
+from models.state import State
 from flask import render_template
 
 
@@ -15,7 +16,8 @@ def states_list():
     """Displays an HTML page with a list of all State objects in DBStorage.
     States are sorted by name.
     """
-    states = storage.all("State")
+    states = list(storage.all(State).values())
+    states.sort(key=lambda state: state.name)
     return render_template("7-states_list.html", states=states)
 
 
